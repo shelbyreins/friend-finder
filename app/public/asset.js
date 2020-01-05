@@ -2,8 +2,8 @@ $("#submit").on("click", function(event){
     event.preventDefault();
 
     var user = {
-        name: $("#name").val(),
-        photo: $("#photo").val(),
+        name: $("#name").val().trim(),
+        photo: $("#photo").val().trim(),
         scores: [
             $("#question1").val(),
             $("#question2").val(),
@@ -18,5 +18,10 @@ $("#submit").on("click", function(event){
         ]
     }
 
-    $.post("/api/friends")
+    $.post("/api/friends", user,
+    function(data){
+        $("#textbox").text(data.name)
+        $("#textbox2").attr("src", data.photo)
+    });
+    
 })
