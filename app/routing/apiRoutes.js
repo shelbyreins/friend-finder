@@ -6,8 +6,12 @@ module.exports = function (app) {
     });
 
     app.post("/api/friends", function (req, res) {
-        tableData.push(req.body);
-        res.json(friends);
+        var totalDifference = 0;
+        var bestfriend = req.body;
+
+        for(var i = 0; i < user.scores.length; i++){
+            user.score[i] = parseInt(user.scores[i])
+        }
     });
 }
 
