@@ -8,7 +8,8 @@ module.exports = function (app) {
     app.post("/api/friends", function (req, res) {
        var user = req.body;
        var scoresArray = [];
-       
+       var bestMatch = 0
+
        for(var i = 0; i < friends.length; i ++){
            var scoreDifference = 0;
            
@@ -20,7 +21,7 @@ module.exports = function (app) {
        }
 
     for (var i = 0; i < scoresArray.length; i ++){
-        var bestMatch = 0
+       
 
         if(scoresArray[i] <= scoresArray[bestMatch]){
             bestMatch = i;
