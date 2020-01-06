@@ -10,11 +10,11 @@ module.exports = function (app) {
        var scoresArray = [];
        var bestMatch = 0
 
-       for(var i = 0; i < friends.length; i ++){
+       for(var i = 0; i < friends.length; i++){
            var scoreDifference = 0;
            
-           for(var j = 0; j < user.scores.length; j ++ ){
-               scoreDifference += (Math.abs(friends[i].scores[j] - user.scores[j]));
+           for(var j = 0; j < user.scores.length; j++){
+               scoreDifference += (Math.abs(parseInt(friends[i].scores[j]) - parseInt(user.scores[j])));
            }
 
            scoresArray.push(scoreDifference);
