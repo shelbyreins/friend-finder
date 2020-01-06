@@ -6,12 +6,31 @@ module.exports = function (app) {
     });
 
     app.post("/api/friends", function (req, res) {
-        var totalDifference = 0;
-        var bestfriend = req.body;
+       var user = req.body;
+       var scoresArray = [];
+       
+       for(var i = 0; i < friends.length; i ++){
+           var scoreDifference = 0;
+           
+           for(var j = 0; j < user.scores.length; j ++ ){
+               scoreDifference += (Math.abs(friends[i].scores[j] - user.scores[j]));
+           }
 
-        for(var i = 0; i < user.scores.length; i++){
-            user.score[i] = parseInt(user.scores[i])
+           scoresArray.push(scoreDifference);
+       }
+
+    for (var i = 0; i < scoresArray.length; i ++){
+        var bestMatch = 0
+
+        if(scoresArray[i] <= scoresArray[bestMatch]){
+            bestMatch = i;
         }
+    }
+
+    var bestFriendMatch = friends[bestMatch];
+        res.json(bestFriendMatch);
+
+    friends.push(user);
     });
 }
 
