@@ -9,12 +9,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-  
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
-      
+
 
 </head>
 
@@ -135,8 +135,10 @@
 
     </div>
     <br>
-    <button type="submit" class="btn btn-primary  btn-block" id="submit">Submit </button>
+    <button type="submit" class="btn btn-primary  btn-block" 
+        id="submit">Submit </button>
 
+        <!-- data-toggle="modal" data-target="#modal-display" -->
     <hr>
 
     <footer class="footer">
@@ -144,6 +146,8 @@
             <p><a href="/api/friends">API Friends List</a> | <a href="#">GitHub Repo</a>
         </div>
     </footer>
+
+
     <div id="modal-display" class="modal" role="dialog">
         <div class="modal-dialog">
 
@@ -165,46 +169,63 @@
         </div>
     </div>
 
-    <script type = "text/javascript" >
-    $("#submit").on("click", function (event) {
-    event.preventDefault();
+    <script type="text/javascript">
+        $("#submit").on("click", function (event) {
+            event.preventDefault();
 
-    var valid = true;
+            var valid = true;
 
-    if ($("#name").val() === "" || $("#photo").val() === "") {
-        valid = false;
-    } else if ($("#question1").val() === "" || $("#question2").val() === "" || $("#question3").val() === "" || $("#question4").val() === "" || $("#question5").val() === "" || $("#question6").val() === "" || $("#question7").val() === "" || $("#question8").val() === "" || $("#question9").val() === "" || $("#question10").val() === "") {
-        valid = false;
-    }
+            if ($("#name").val() === "" || $("#photo").val() === "") {
+                valid = false;
+            } else if ($("#question1").val() === "" || $("#question2").val() === "" || $("#question3").val() === "" || $("#question4").val() === "" || $("#question5").val() === "" || $("#question6").val() === "" || $("#question7").val() === "" || $("#question8").val() === "" || $("#question9").val() === "" || $("#question10").val() === "") {
+                valid = false;
+            }
 
-    if (valid === true) {
+            if (valid === true) {
 
-        var user = {
-            name: $("#name").val().trim(),
-            photo: $("#photo").val().trim(),
-            scores: [
-                $("#question1").val(),
-                $("#question2").val(),
-                $("#question3").val(),
-                $("#question4").val(),
-                $("#question5").val(),
-                $("#question6").val(),
-                $("#question7").val(),
-                $("#question8").val(),
-                $("#question9").val(),
-                $("#question10").val()
-            ]
-        };
+                var user = {
+                    name: $("#name").val().trim(),
+                    photo: $("#photo").val().trim(),
+                    scores: [
+                        $("#question1").val(),
+                        $("#question2").val(),
+                        $("#question3").val(),
+                        $("#question4").val(),
+                        $("#question5").val(),
+                        $("#question6").val(),
+                        $("#question7").val(),
+                        $("#question8").val(),
+                        $("#question9").val(),
+                        $("#question10").val()
+                    ]
+                };
 
-        $.post("/api/friends", user,
-            function (data) {
-                $("#match-name").text(data.name)
-                $("#match-image").attr("src", data.photo)
-            });
+                var currentURL = window.location.origin;
+                $.post(currentURL + "/api/friends", user,
+                    function (data) {
+                        $("#match-name").text(data.name);
+                        $("#match-image").attr("src", data.photo)
+                    });
 
-    } else {
-        alert("Please complete all questions")
-    }
+                $("#modal-display").modal("toggle");
+
+
+                $("#name").val("");
+                $("#photo").val("");
+                $("#question1").val("");
+                $("#question2").val("");
+                $("#question3").val("");
+                $("#question4").val("");
+                $("#question5").val("");
+                $("#question6").val("");
+                $("#question7").val("");
+                $("#question8").val("");
+                $("#question9").val("");
+                $("#question10").val("");
+
+        } else {
+                alert("Please complete all questions")
+            }
 });
     </script>
 </body>
